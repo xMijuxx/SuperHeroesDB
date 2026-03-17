@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using SuperHeroesDB.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<HeroesContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SuperHeroesDB")));
 
 var app = builder.Build();
 
