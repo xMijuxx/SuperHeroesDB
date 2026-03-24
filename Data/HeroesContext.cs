@@ -24,6 +24,11 @@ namespace SuperHeroesDB.Data
                 .WithMany(h => h.HeroPowers)
                 .HasForeignKey(hp => hp.HeroId);
 
+            modelBuilder.Entity<HeroPower>()
+                .HasOne(hp => hp.Power)
+                .WithMany(p => p.HeroPowers)
+                .HasForeignKey(hp => hp.PowerId);
+
             base.OnModelCreating(modelBuilder);
         }
     }
