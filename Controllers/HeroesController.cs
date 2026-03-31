@@ -20,10 +20,18 @@ namespace SuperHeroesDB.Controllers
         }
 
         // GET: Heroes
-        public async Task<IActionResult> Index()
+
+        //wyszukiwarka
+        public async Task<IActionResult> Index(string searchString)
         {
-            var heroesContext = _context.Heroes.Include(h => h.Team);
-            return View(await heroesContext.ToListAsync());
+            var heroes = _context.Heroes.Include(h => h.Team).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                heroes = heroes.Where(h => h.HeroName.Contains(searchString));
+            }
+
+            return View(await heroes.ToListAsync());
         }
 
         // GET: Heroes/Details/5
