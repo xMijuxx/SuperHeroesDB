@@ -56,6 +56,11 @@ namespace SuperHeroesDB.Controllers
         // GET: Heroes/Create
         public IActionResult Create()
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             ViewData["TeamId"] = new SelectList(_context.Teams, "TeamId", "TeamName");
             return View();
         }
@@ -67,6 +72,11 @@ namespace SuperHeroesDB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("HeroId,HeroName,FirstName,LastName,TeamId")] Hero hero)
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+                
             if (ModelState.IsValid)
             {
                 _context.Add(hero);
@@ -80,6 +90,11 @@ namespace SuperHeroesDB.Controllers
         // GET: Heroes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -101,6 +116,11 @@ namespace SuperHeroesDB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("HeroId,HeroName,FirstName,LastName,TeamId")] Hero hero)
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             if (id != hero.HeroId)
             {
                 return NotFound();
@@ -133,6 +153,11 @@ namespace SuperHeroesDB.Controllers
         // GET: Heroes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -154,6 +179,11 @@ namespace SuperHeroesDB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             var hero = await _context.Heroes.FindAsync(id);
             if (hero != null)
             {

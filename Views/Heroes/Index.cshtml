@@ -5,10 +5,12 @@
 }
 
 <h1>Heroes</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (Context.Request.Cookies.ContainsKey("UserLogin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 <form asp-controller="Heroes" asp-action="Index" method="get">
     <p>
         Search by hero's nickname <input type="text" name="searchString"/>
@@ -49,9 +51,20 @@
                 @Html.DisplayFor(modelItem => item.Team.TeamName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.HeroId">Edit</a> |
+                @if (Context.Request.Cookies.ContainsKey("UserLogin"))
+                {
+                        <a asp-action="Edit" asp-route-id="@item.HeroId">Edit</a>
+                
+                        <span> | </span>
+                }
                 <a asp-action="Details" asp-route-id="@item.HeroId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.HeroId">Delete</a>
+
+                @if (Context.Request.Cookies.ContainsKey("UserLogin"))
+                {
+                        <span> | </span>
+
+                        <a asp-action="Delete" asp-route-id="@item.HeroId">Delete</a>
+                }
             </td>
         </tr>
 }

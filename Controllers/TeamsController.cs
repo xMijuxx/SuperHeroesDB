@@ -46,6 +46,11 @@ namespace SuperHeroesDB.Controllers
         // GET: Teams/Create
         public IActionResult Create()
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             return View();
         }
 
@@ -56,6 +61,11 @@ namespace SuperHeroesDB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TeamId,TeamName")] Team team)
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(team);
@@ -68,6 +78,11 @@ namespace SuperHeroesDB.Controllers
         // GET: Teams/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -88,6 +103,11 @@ namespace SuperHeroesDB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TeamId,TeamName")] Team team)
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             if (id != team.TeamId)
             {
                 return NotFound();
@@ -119,6 +139,11 @@ namespace SuperHeroesDB.Controllers
         // GET: Teams/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -139,6 +164,11 @@ namespace SuperHeroesDB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (!Request.Cookies.ContainsKey("UserLogin"))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
             var team = await _context.Teams.FindAsync(id);
             if (team != null)
             {

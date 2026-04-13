@@ -11,7 +11,7 @@ namespace SuperHeroesDB.Models
         public string Login { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string HashPassword { get; set; }
 
         [Required]

@@ -25,6 +25,19 @@ namespace SuperHeroesDB.Controllers
         {
             if (ModelState.IsValid)
             {
+                bool loginExists = _context.User.Any(u => u.Login == user.Login);
+                bool emailExists = _context.User.Any(u => u.Email == user.Email);
+
+                if (loginExists)
+                {
+                    ModelState.AddModelError("Login", "This login is taken. Please choose another one.");
+                }
+
+                if (emailExists)
+                {
+                    ModelState.AddModelError("Email", "This email address is already registered.");
+                }
+
                 user.HashPassword = HashString(user.HashPassword);
 
                 _context.User.Add(user);

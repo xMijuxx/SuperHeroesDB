@@ -4,5 +4,24 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Site for DC heroes :3</p>
+    <p>Site for DC heroes</p>
+
+    @if (Context.Request.Cookies.ContainsKey("UserLogin"))
+    {
+        <div class="alert alert-success">
+            <h4>Logged in as: <strong>@Context.Request.Cookies["UserLogin"]</strong></h4>
+            <p>You can edit the database now!</p>
+        </div>
+        <a asp-controller="Authentication" asp-action="Logout" class="btn btn-outline-danger">Log out</a>
+    }
+    else
+    {
+        <div class="mt-4">
+            <p>To edit the database, log in.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a asp-controller="Authentication" asp-action="Login" class="btn btn-primary btn-lg">Log in</a>
+                <a asp-controller="Authentication" asp-action="Register" class="btn btn-secondary btn-lg">Register</a>
+            </div>
+        </div>
+    }
 </div>
