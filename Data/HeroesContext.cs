@@ -13,6 +13,7 @@ namespace SuperHeroesDB.Data
         public DbSet<Power> Powers { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<HeroPower> HeroPowers { get; set; }
+        public DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
