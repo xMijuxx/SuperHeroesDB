@@ -25,8 +25,8 @@ namespace SuperHeroesDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool loginExists = _context.User.Any(u => u.Login == user.Login);
-                bool emailExists = _context.User.Any(u => u.Email == user.Email);
+                bool loginExists = _context.User.Any(u => u.Login.ToLower() == user.Login.ToLower());
+                bool emailExists = _context.User.Any(u => u.Email.ToLower() == user.Email.ToLower());
 
                 if (loginExists)
                 {
@@ -36,6 +36,11 @@ namespace SuperHeroesDB.Controllers
                 if (emailExists)
                 {
                     ModelState.AddModelError("Email", "This email address is already registered.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(user);
                 }
 
                 user.HashPassword = HashString(user.HashPassword);
